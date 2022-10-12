@@ -1,5 +1,5 @@
 // Require the necessary discord.js classes
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const { token } = require('./config.json');
 const dataHandler = require ('./dataHandler')
 
@@ -16,34 +16,32 @@ const leaderboardChannels = {
 
 const buildLeaderboard = (quest) => {
     let data = dataHandler.getLeaders(quest)
-    let leaderboard = "```"
-    leaderboard += "| Rank | User         |       Time | Image \n" 
-    exampleString= "|      |              |            | "
 
-    data.forEach((entry, i) => {
-        let time = dataHandler.ticksToTime(entry.time)
+    return {
+        color: 0x0099ff,
+        title: quest + " Top 10",
+        description: data.map((entry, i) =>
+            (i + 1) + ". " + dataHandler.ticksToTime(entry.time) + " - " + entry.user + " - " + "[Image](" + entry.image + ")"
+        ).join("\n"),
+        timestamp: new Date().toISOString()
+    };
 
-        let formattedEntry = "| "
-        let rank = (i + 1) + ""
-        formattedEntry += rank.padStart(4, " ")
-
-        formattedEntry += " | "
-
-        formattedEntry += entry.user.padEnd(12, " ")
-
-        formattedEntry += " | "
-
-        formattedEntry += time.padStart(10, " ")
-
-        formattedEntry += " | "
-
-        formattedEntry += entry.image
-        formattedEntry += "\n"
-        leaderboard += formattedEntry
+    return data.map((entry, i) => {
+        return {
+            color: 0x0099ff,
+            title: (i + 1) + ". " + entry.user,
+            description: dataHandler.ticksToTime(entry.time),
+            fields: [
+                {
+                    name: 'Image',
+                    value:  entry.image,
+                    inline: true,
+                },
+            ],
+            timestamp: new Date(entry.date).toISOString(),
+        };
     })
-
-    leaderboard += "```"
-    return leaderboard
+    
 }
 
 const updateLeaderboard = (quest, channelID) => {
@@ -53,7 +51,7 @@ const updateLeaderboard = (quest, channelID) => {
     // const channelID = leaderboardChannels[leaderboard]
     // const channelID = "1020827647170854922"
     client.channels.cache.get(channelID).bulkDelete(1)
-    client.channels.cache.get(channelID).send({ content: buildLeaderboard(quest)})
+    client.channels.cache.get(channelID).send({ embeds: [buildLeaderboard(quest)]})
 }
 
 // When the client is ready, run this code (only once)
@@ -132,10 +130,10 @@ Video: ${data.video}\`\`\`
 
             await interaction.reply({ content: 'Submission has been confirmed'});
 
-            if(JSON.stringify(newBoard) !== JSON.stringify(oldBoard)){
+            // if(JSON.stringify(newBoard) !== JSON.stringify(oldBoard)){
                 console.log(submission.quest, leaderboardChannels[submission.quest])
                 updateLeaderboard(submission.quest, leaderboardChannels[submission.quest])
-            }
+            // }
         }
     }
 

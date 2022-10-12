@@ -117,7 +117,7 @@ const confirmSubmission = (id, user) => {
     let newData = {
         ...data,
         confirmed: true,
-        denied: false.valueOf,
+        denied: false,
         lastEditor: user
     }
 
@@ -209,11 +209,11 @@ const getLeaders = (quest) => {
     const names = new Set()
 
     let filteredEntries = sortedEntries.filter((entry) => {
-        if(names.has(entry.user)){
+        if(names.has(entry.user.toLowerCase())){
             return false
         }
         else{
-            names.add(entry.user)
+            names.add(entry.user.toLowerCase())
             return true
         }
     })
