@@ -27,7 +27,7 @@ const ticksToTime = (ticks)=>{
         timeStr = timeStr + (mins.substring(mins.length - 2)) + ":"
     }
 
-    let secs = "0" + (ticks * 0.6).toFixed(1)
+    let secs = "0" + (ticks % 100 * 0.6).toFixed(1)
     timeStr = timeStr + secs.substring(secs.length - 4) + "s"
     if(timeStr[0] === "0"){
         timeStr = timeStr.substring(1)
