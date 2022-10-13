@@ -67,6 +67,9 @@ const commands = [
 
     new SlashCommandBuilder()
     .setName('update')
+    .setDescription('Verify video and add link (optional)'),
+    new SlashCommandBuilder()
+    .setName('backupdata')
     .setDescription('Verify video and add link (optional)')
 ]
 	.map(command => command.toJSON());

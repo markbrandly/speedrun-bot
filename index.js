@@ -151,6 +151,13 @@ Video: ${data.video}\`\`\`
             await interaction.reply({content: "Updated!", ephemeral: true})
         // }
     }
+
+    else if(commandName === "backupdata"){
+        let channelID = "1020561678011740231"
+        if(interaction.channelId === channelID ){
+            client.channels.cache.get(channelID).send({ files:["data.json"]})
+        }
+    }
 });
 
 // Login to Discord with your client's token
