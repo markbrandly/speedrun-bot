@@ -44,13 +44,13 @@ const buildLeaderboard = (quest) => {
     
 }
 
-const updateLeaderboard = (quest, channelID) => {
+const updateLeaderboard = async (quest, channelID) => {
     if(!(quest in leaderboardChannels)){
         return false
     }
     // const channelID = leaderboardChannels[leaderboard]
     // const channelID = "1020827647170854922"
-    client.channels.cache.get(channelID).bulkDelete(1)
+    await client.channels.cache.get(channelID).bulkDelete(1)
     client.channels.cache.get(channelID).send({ embeds: [buildLeaderboard(quest)]})
 }
 
@@ -134,6 +134,14 @@ Video: ${data.video}\`\`\`
                 console.log(submission.quest, leaderboardChannels[submission.quest])
                 updateLeaderboard(submission.quest, leaderboardChannels[submission.quest])
             // }
+        }
+    }
+
+    else if(commandName === "deny"){
+        if(interaction.channelId === "1020561678011740231"){
+            const submissionId = parseInt(interaction.options.getInteger("id"))
+
+            let {submission} = dataHandler.denySubmission(submissionId)
         }
     }
 

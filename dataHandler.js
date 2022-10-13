@@ -62,7 +62,7 @@ const timeToTicks = (time) => {
 const dataHandler = {
     data: data,
     set setData(newData){
-        this.data = newData
+        this.data = copy(newData)
         fs.writeFile('data.json', JSON.stringify(this.data, null, 2), 'utf8', ()=>{});
     },
     get getData(){
@@ -125,7 +125,21 @@ const confirmSubmission = (id, user) => {
 }
 
 const denySubmission = (id, user) => {
-    
+    let subObj = getSubmission(id)
+    if(!subObj.success){
+        return {success: false}
+    }
+
+    let data = subObj.submission
+
+    let newData = {
+        ...data,
+        confirmed: false,
+        denied: true,
+        lastEditor: user
+    }
+
+    changeSubmission(id, newData)
 }
 
 const verifySubmission = (id, user, video = null) => {
@@ -226,6 +240,7 @@ module.exports = {
     getSubmission,
     getSubmissionFormatted,
     confirmSubmission,
+    denySubmission,
     getLeaders,
     ticksToTime
 }
