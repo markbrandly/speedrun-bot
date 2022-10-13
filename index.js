@@ -141,7 +141,13 @@ Video: ${data.video}\`\`\`
         if(interaction.channelId === "1020561678011740231"){
             const submissionId = parseInt(interaction.options.getInteger("id"))
 
-            let {submission} = dataHandler.denySubmission(submissionId)
+            let {submission} = dataHandler.getSubmission(submissionId)
+
+            dataHandler.denySubmission(submissionId, interaction.user.id)
+
+            await interaction.reply({ content: 'Submission has been DENIED'});
+
+            updateLeaderboard(submission.quest, leaderboardChannels[submission.quest])
         }
     }
 
