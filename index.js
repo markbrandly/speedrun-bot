@@ -11,7 +11,9 @@ const leaderboardChannels = {
     "Dragon Slayer 1" : "1029211730888368129",
     "Demon Slayer" : "1029211692120420453",
     "Vampyre Slayer" : "1029211712307597312",
-    "Ernest the Chicken" : "1029211674231722154"
+    "Ernest the Chicken" : "1029211674231722154",
+    "Beneath Cursed Sands" : "1040105999320764546",
+    "Prince Ali Rescure" : "1040106081990492221"
 }
 
 const buildLeaderboard = (quest) => {
