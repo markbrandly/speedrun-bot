@@ -13,7 +13,7 @@ const leaderboardChannels = {
     "Vampyre Slayer" : "1029211712307597312",
     "Ernest the Chicken" : "1029211674231722154",
     "Beneath Cursed Sands" : "1040105999320764546",
-    "Prince Ali Rescure" : "1040106081990492221"
+    "Prince Ali Rescue" : "1040106081990492221"
 }
 
 const buildLeaderboard = (quest) => {
