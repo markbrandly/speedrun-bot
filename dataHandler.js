@@ -11,7 +11,9 @@ const quests = [
     "Vampyre Slayer",
     "Ernest the Chicken",
     "Beneath Cursed Sands",
-    "Prince Ali Rescue"
+    "Prince Ali Rescue",
+    "A Taste of Hope",
+    "Sins of the Father"
 ]
 
 const copy = (obj) => JSON.parse(JSON.stringify(obj))
